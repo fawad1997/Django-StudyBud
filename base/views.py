@@ -1,18 +1,15 @@
 from django.shortcuts import render
+from .models import Room
 
-rooms = [
-    {'id': 1, 'name':'Lets learn Python'},
-    {'id': 2, 'name':'Lets learn Java'},
-    {'id': 3, 'name':'Lets learn C Sharp'},
-    {'id': 4, 'name':'Lets learn Android'},
-]
+rooms = []
 # Create your views here.
 def home(request):
+    rooms = Room.objects.all()
     context = {'rooms': rooms}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
-    room = None
+    room = Room.objects.get(id=pk)
     for i in rooms:
         if(i['id']==int(pk)):
             room = i
